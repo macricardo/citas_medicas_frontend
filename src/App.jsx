@@ -1,57 +1,22 @@
-// src/components/App.jsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import Home from './components/Home';
+import Logo from './components/Logo';
 
 function App() {
-  const [doctors, setDoctors] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('http://localhost:8080/doctores')
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch doctors');
-        return res.json();
-      })
-      .then((data) => setDoctors(data))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-
   return (
-    <div>
-      <h1>Doctores</h1>
-      <table border="1" cellPadding="6">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Teléfono</th>
-            <th>RFC</th>
-            <th>Status ID</th>
-            <th>Consultorio ID</th>
-            <th>Creado</th>
-            <th>Actualizado</th>
-          </tr>
-        </thead>
-        <tbody>
-  {doctors.map((doctor) => (
-    <tr key={doctor.id}>
-      <td>{doctor.id}</td>
-      <td>{doctor.nombre}</td>
-      <td>{doctor.email}</td>
-      <td>{doctor.telefono}</td>
-      <td>{doctor.rfc}</td>
-      <td>{doctor.statusId}</td>
-      <td>{doctor.consultorioId}</td>
-      <td>{doctor.fechaCreado}</td>
-      <td>{doctor.fechaUpdate}</td>
-    </tr>
-  ))}
-</tbody>
-
-      </table>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateRows: '1fr 1fr', // Two rows of equal height
+        justifyItems: 'center', // Center items horizontally
+        alignItems: 'center', // Center items vertically within their row
+        height: '100vh', // Full height of the viewport
+        width: '100vw', // Full width of the viewport
+        margin: '0', // Remove any default margin
+      }}
+    >
+      <Logo />
+      <Home />
     </div>
   );
 }
